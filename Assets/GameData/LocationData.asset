@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a872125fa1a3f84b801b2032e035d2d, type: 3}
+  m_Name: LocationData
+  m_EditorClassIdentifier: 
+  location_datas:
+  - location_number: 1
+    location_type: 0
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image: {fileID: 21300000, guid: d977fa0243f0c354e91d771f407862fb, type: 3}
+    name: Palace first
+    is_completed: 0
+    furniture_progress: 0
+  - location_number: 2
+    location_type: 0
+    item_datas: {fileID: 0}
+    image: {fileID: 21300000, guid: 2cef2f6ec5fac484dbc8384e384b4542, type: 3}
+    name: Palace second
+    is_completed: 0
+    furniture_progress: 0

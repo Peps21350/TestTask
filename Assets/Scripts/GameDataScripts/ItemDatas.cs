@@ -7,14 +7,14 @@ using UnityEngine;
 [CreateAssetMenu( fileName = "ItemDatas", menuName = "ScriptableObjects/Data/ItemDatas", order = 1 )]
 public class ItemDatas : ScriptableObject
 {
+  #region Serialize Fields
   [SerializeField] public ItemData[] item_datas = null;
-  
+  #endregion
   
   #region Public Methods
   public List<ItemData> getSortedItemDatas() 
     => item_datas.OrderBy( t => t.order_in_layer ).ToList();
   #endregion
-  
   
   [Serializable]
   public struct ItemData
@@ -28,7 +28,6 @@ public class ItemDatas : ScriptableObject
 
     public Vector2 item_position;
     public Vector2 item_scale;
-    public bool    is_spawned;
   }
 
   [Serializable]

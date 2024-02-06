@@ -9,7 +9,6 @@ public class LocationDatas : ScriptableObject
   #region Serialize Fields
   [SerializeField] public LocationData[] location_datas = null;
   #endregion
-
   
   #region Public Methods
   public LocationData? getLocationData( int location_number ) 

@@ -1,14 +1,15 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 
 public class UIButtonBase : ButtonBase
 {
   #region Serialize Fields
+  [FormerlySerializedAs( "img_icon" )]
   [Header( nameof( UIButtonBase ) )] 
-  [SerializeField] protected Image         img_icon           = null;
-  [SerializeField] protected UITextMesh    txt_title          = null;
-  [SerializeField] private   RectTransform rect_transform_btn = null;
+  [SerializeField] protected SpriteRenderer spr_renderer       = null;
+  [SerializeField] protected UITextMesh     txt_title          = null;
+  [SerializeField] private   RectTransform  rect_transform_btn = null;
 
   [SerializeField] private Color color_normal   = new Color( 1.0f, 1.0f, 1.0f, 1.0f );
   [SerializeField] private Color color_pressed  = new Color( 0.6f, 0.6f, 0.6f, 1.0f );
@@ -20,12 +21,12 @@ public class UIButtonBase : ButtonBase
   public void setSpriteIcon( Sprite sprite )
   {
     initComponents();
-
-    if ( !img_icon )
+    
+    if ( !spr_renderer )
       return;
 
-    img_icon.enabled = sprite != null;
-    img_icon.sprite = sprite;
+    spr_renderer.enabled = sprite != null;
+    spr_renderer.sprite = sprite;
   }
 
   public void setTitle( string title_text )

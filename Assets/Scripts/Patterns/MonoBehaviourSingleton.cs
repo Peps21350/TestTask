@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-public class MonoBehaviourSingleton<T> : MonoBehaviour
+public class MonoBehaviourSingleton<T> : MonoBehaviourBase
   where T : MonoBehaviourSingleton<T>
 {
   public static bool isRegistered => instance != null;

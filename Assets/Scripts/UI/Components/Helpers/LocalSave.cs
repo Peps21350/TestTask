@@ -3,22 +3,26 @@ using UnityEngine;
 public class LocalSave : MonoBehaviour
 {
   #region Private Fields
-  private const string KEY_PLAYER_POINTS     = "player_points";
-  private const string KEY_POINTS_MULTIPLIER = "player_multiplier";
+  private const string KEY_LOCATION_NUMBER = "cur_location_number";
+  private const string KEY_LOCATION_FURNITURE_NUMBER = "cur_location_{0}_number";
   #endregion
 
   
   #region Public Methods
-  public static float playerPoints
+  public static int curLocationNumber
   {
-    get => getFloat( KEY_PLAYER_POINTS, 0 );
-    set => setFloat( KEY_PLAYER_POINTS, value );
+    get => getInt( KEY_LOCATION_NUMBER, 0 ) ;
+    set => setInt( KEY_LOCATION_NUMBER, value );
+  }
+
+  public static int getCurLocationFurnitureNumber( int cur_location_number )
+  {
+    return getInt( string.Format( KEY_LOCATION_NUMBER, cur_location_number ), 0 ) ;
   }
   
-  public static float pointsMultiplier
+  public static void setCurLocationFurnitureNumber( int cur_location_number, int value )
   {
-    get => getFloat( KEY_POINTS_MULTIPLIER, 0.001f );
-    set => setFloat( KEY_POINTS_MULTIPLIER, value );
+    setInt( string.Format( KEY_LOCATION_NUMBER, cur_location_number ), value );
   }
   #endregion
 
@@ -28,11 +32,5 @@ public class LocalSave : MonoBehaviour
 
   private static int getInt( string key, int value )
     => PlayerPrefs.GetInt( key, value );
-  
-  private static void setFloat( string key, float value )
-    => PlayerPrefs.SetFloat( key, value );
-
-  private static float getFloat( string key, float value )
-    => PlayerPrefs.GetFloat( key, value );
   #endregion
 }

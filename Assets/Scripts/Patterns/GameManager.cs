@@ -14,10 +14,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     
     private void init()
     {
-        // MyNewCoroutineExtensions.init();
-        // MyNewCoroutine.init();
-        // MainThreadExecutioner.init();
-        //
-        // viewManager.addPlayerView();
+        viewManager.addMiniGameView();
     }
 }

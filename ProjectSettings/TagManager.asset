@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Furnitures
+    uniqueID: 2172236749
+    locked: 0
+  - name: LocationBackground
+    uniqueID: 302160409
+    locked: 0
+  - name: UIButtons
+    uniqueID: 457867755
+    locked: 0

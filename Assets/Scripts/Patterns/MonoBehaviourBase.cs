@@ -1,10 +1,5 @@
 using UnityEngine;
 
-#if UNITY_EDITOR
-using System.Collections.Generic;
-using UnityEditor;
-#endif
-
 
 public abstract class MonoBehaviourBase : MonoBehaviour
 {
@@ -12,7 +7,6 @@ public abstract class MonoBehaviourBase : MonoBehaviour
   protected static ViewManager         viewManager     => MonoBehaviourSingleton<ViewManager>.Instance;
   protected static ClickableBaseGlobal clickableGlobal => MonoBehaviourSingleton<ClickableBaseGlobal>.Instance;
   
-  public RectTransform rect_transform => transform as RectTransform;
   
   private bool was_inited_components = false;
   

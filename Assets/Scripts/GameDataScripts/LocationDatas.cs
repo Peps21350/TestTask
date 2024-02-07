@@ -11,8 +11,15 @@ public class LocationDatas : ScriptableObject
   #endregion
   
   #region Public Methods
-  public LocationData? getLocationData( int location_number ) 
-    => location_datas.FirstOrDefault( it => it.location_number == location_number );
+  public LocationData? getLocationData( int location_number )
+  {
+    LocationData? location_data = location_datas[location_number];//.FirstOrDefault( it => it.location_number == location_number );
+    
+    if ( location_data == null )
+      Debug.LogError( "Empty Data" );
+    
+    return location_data;
+  }
 
   public void setLocationCompleted( int location_number )
   {

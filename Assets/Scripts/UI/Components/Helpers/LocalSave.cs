@@ -11,18 +11,18 @@ public class LocalSave : MonoBehaviour
   #region Public Methods
   public static int curLocationNumber
   {
-    get => getInt( KEY_LOCATION_NUMBER, 0 ) ;
+    get => getInt( KEY_LOCATION_NUMBER, 0 );
     set => setInt( KEY_LOCATION_NUMBER, value );
   }
 
   public static int getCurLocationFurnitureNumber( int cur_location_number )
   {
-    return getInt( string.Format( KEY_LOCATION_NUMBER, cur_location_number ), 0 ) ;
+    return getInt( string.Format( KEY_LOCATION_FURNITURE_NUMBER, cur_location_number ), 0 );
   }
   
   public static void setCurLocationFurnitureNumber( int cur_location_number, int value )
   {
-    setInt( string.Format( KEY_LOCATION_NUMBER, cur_location_number ), value );
+    setInt( string.Format( KEY_LOCATION_FURNITURE_NUMBER, cur_location_number ), value );
   }
   #endregion
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using ItemData = ItemDatas.ItemData;
 using LocationData = LocationDatas.LocationData;
@@ -7,30 +6,43 @@ using LocationData = LocationDatas.LocationData;
 
 public class LocationModel : BaseModel
 {
-  private LocationDatas locationData { get; }
-
-  private ItemDatas    items_data        = default;
-  private LocationData cur_location_data = default;
+  private LocationDatas location_data     = default;
+  private ItemDatas     items_data        = default;
+  private LocationData  cur_location_data = default;
   
-  private int cur_location_number  = 0;
-  private int cur_furniture_number = 0;
+  private int cur_location_number   = 0;
+  private int cur_furniture_number  = 0;
+
+  public bool canInstallNextFurniture => items_data != null && items_data.item_datas.Length >= cur_furniture_number + 1;
   
   public LocationModel()
   {
-    cur_location_number = LocalSave.curLocationNumber;
+    PlayerPrefs.DeleteAll();// todo delete
+    cur_location_number  = LocalSave.curLocationNumber;
     cur_furniture_number = getCurFurnitureNumber();
-    locationData = Resources.Load<LocationDatas>( "GameData/LocationData" );
-    cur_location_data = getLocationData();
+    cur_location_data    = getLocationData();
+    items_data           = cur_location_data.item_datas;
   }
   
-  public ItemData getCurFurniture()
+  public ItemData? getCurFurniture()
   {
-    return getSortedItemsData()[cur_furniture_number];
+    List<ItemData> data = getSortedItemsData();
+    if ( data == null || data.Count < cur_furniture_number + 1 )
+      return null;
+      
+    return data[cur_furniture_number];
   }
 
   public List<ItemData> getSortedItemsData()
   {
     items_data = cur_location_data.item_datas;
+
+    if ( items_data == null )
+    {
+      Debug.LogError( $"List sorted item data is null - {nameof(getSortedItemsData)}" );
+      return null;
+    }
+    
     return items_data.getSortedItemDatas();
   }
 
@@ -39,19 +51,22 @@ public class LocationModel : BaseModel
     LocalSave.curLocationNumber = number;
   }
 
-  public void incrementFurnitureNumber()
+  public void tryIncrementFurnitureNumber()
   {
-    if ( items_data.item_datas.Length <= cur_furniture_number )
+    if ( items_data == null )
+      return;
+    
+    if ( canInstallNextFurniture )
+      cur_furniture_number++;
+    else
     {
-      locationData.setLocationCompleted( cur_location_number );
+      location_data.setLocationCompleted( cur_location_number );
       incrementLocationNumber();
       saveLocationNumber();
 
       updateData();
       cur_furniture_number = 0;
     }
-    else
-      cur_furniture_number++;
   }
 
   private void updateData()
@@ -72,7 +87,10 @@ public class LocationModel : BaseModel
 
   public LocationData getLocationData()
   {
-    cur_location_data = locationData.getLocationData( cur_location_number ) ?? new LocationData();
+    if ( location_data == null )
+      location_data = Resources.Load<LocationDatas>( "GameData/LocationData" );
+    
+    cur_location_data = location_data.getLocationData( cur_location_number ) ?? new LocationData();
     return cur_location_data;
   }
 

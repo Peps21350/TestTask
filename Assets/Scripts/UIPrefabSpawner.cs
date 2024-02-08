@@ -137,14 +137,11 @@ public class UIPrefabSpawner : MonoBehaviourBase
     if ( dataCount == 0 )
       yield break;
 
-    while ( true )
+    current_spawn_idx++;
+    
+    for ( int i = 0; i < dataCount - current_spawn_idx; i++ )
     {
-      current_spawn_idx++;
-
-      if ( !currentSpawnIdx.isInRange( 0, dataCount ) )
-        yield break;
-
-      getSpawnData( currentSpawnIdx ).func_action(); // todo
+      getSpawnData( currentSpawnIdx ).func_action();
     }
   }
 

@@ -48,6 +48,11 @@ public class UIButtonBase : ButtonBase
       txt_title.margin = margin;
   }
 
+  public void setActiveInteractable( bool state )
+  {
+    isInteractable = state;
+  }
+
   public void setTitle( string title_text, Vector3 position )
   {
     setTitle( title_text );
@@ -80,8 +85,9 @@ public class UIButtonBase : ButtonBase
     Color color = (isInteractable && isInteractableInHierarchy)
       ? (button_state == ButtonState.PRESSED ? color_pressed : color_normal)
       : color_disabled;
-    
-// todo
+
+    spr_renderer.color = color;
+    // todo
   }
 
   private void crossFadeScale( ButtonState button_state )

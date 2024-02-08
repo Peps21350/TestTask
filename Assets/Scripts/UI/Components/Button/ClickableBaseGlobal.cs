@@ -68,10 +68,7 @@ public class ClickableBaseGlobal : MonoBehaviourSingleton<ClickableBaseGlobal>
     on_not_allowed_click_subscriptions.call( clickable, pointer_event_data );
     return on_not_allowed_click_subscriptions.any;
   }
-
-  /// <summary>
-  /// Sets the global clickable state. Will clear clickable excludes on state change
-  /// </summary>
+  
   public void setGlobalClickableState( GlobalClickableAvailabilityState state )
   {
     Debug.LogWarning( $"changed global clickable state to {nameof( state )} {state}" );
@@ -82,49 +79,7 @@ public class ClickableBaseGlobal : MonoBehaviourSingleton<ClickableBaseGlobal>
     clickable_availability_state = state;
     onGlobalClickableStateChanged( clickable_availability_state );
   }
-
-  public void addToExclude( params ClickableBase[] clickables )
-  {
-    if ( clickables.Length == 0 )
-      throw new Exception( $"Argument {nameof( clickables )} {clickables} contains no elements!" );
-
-    foreach ( ClickableBase clickable_base in clickables )
-      clickable_excludes.Add( clickable_base );
-  }
   
-  public void addToExcludeWithoutClearing( params ClickableBase[] clickables )
-  {
-    if ( clickables.Length == 0 )
-      throw new Exception( $"Argument {nameof( clickables )} {clickables} contains no elements!" );
-
-    foreach ( ClickableBase clickable_base in clickables )
-      clickable_excludes_uncleared.Add( clickable_base );
-  }
-
-  public void addToExcludeAnyway( params ClickableBase[] clickables )
-  {
-    if ( clickables.Length == 0 )
-      throw new Exception( $"Argument {nameof( clickables )} {clickables} contains no elements!" );
-
-    foreach ( ClickableBase clickable_base in clickables )
-      clickable_excludes_anyway.Add( clickable_base );
-  }
-
-  public bool removeFromExclude( ClickableBase clickable )
-    => clickable_excludes.Remove( clickable );
-
-  public void removeFromExclude( ClickableBase[] clickables )
-  {
-    if ( clickables.Length == 0 )
-      throw new Exception( $"Argument {nameof( clickables )} {clickables} contains no elements!" );
-
-    foreach ( ClickableBase clickable_base in clickables )
-      clickable_excludes.Remove( clickable_base );
-  }
-  
-  public void removeFromExcludeWithoutClearing( ClickableBase clickable )
-    => clickable_excludes_uncleared.Remove( clickable );
-
   public bool isInExclude( ClickableBase clickable )
     => clickable_excludes.Contains( clickable ) || clickable_excludes_uncleared.Contains( clickable );
 

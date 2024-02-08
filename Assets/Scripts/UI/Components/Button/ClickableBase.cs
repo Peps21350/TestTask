@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 #if UNITY_EDITOR
@@ -40,40 +39,7 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
       on_click_subscriptions.remove( value );
     }
   }
-  public event Action<PointerEventData> onNotInteractableClick
-  {
-    add
-    {
-      if ( on_not_interactable_click_subscriptions == null )
-        on_not_interactable_click_subscriptions = new EventAction<PointerEventData>();
 
-      on_not_interactable_click_subscriptions.add( value );
-    }
-    remove
-    {
-      if ( on_not_interactable_click_subscriptions == null )
-        return;
-
-      on_not_interactable_click_subscriptions.remove( value );
-    }
-  }
-  public event Action<PointerEventData> onLongClick
-  {
-    add
-    {
-      if ( on_long_click_subscriptions == null )
-        on_long_click_subscriptions = new EventAction<PointerEventData>();
-
-      on_long_click_subscriptions.add( value );
-    }
-    remove
-    {
-      if ( on_long_click_subscriptions == null )
-        return;
-
-      on_long_click_subscriptions.remove( value );
-    }
-  }
   public event Action<PointerEventData> onPointerDown                    = null;
   public event Action<PointerEventData> onPointerEnter                   = null;
   public event Action<PointerEventData> onPointerUp                      = null;
@@ -104,8 +70,6 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
   #endregion
 
   #region Private Fields
-  private static readonly AnimationCurve default_from_min_to_max_curve = AnimationCurve.Linear( 0.0f, 0.0f, 1.0f, 1.0f );
-
   private EventAction<PointerEventData> on_click_subscriptions                  = null;
   private EventAction<PointerEventData> on_long_click_subscriptions             = null;
   private EventAction<PointerEventData> on_not_interactable_click_subscriptions = null;
@@ -158,8 +122,7 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
       return;
 
     onPhysicallyUp();
-
-    stopLongClickCoroutine();
+    
     if ( !canContinueInteraction )
       return;
 
@@ -192,8 +155,7 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
   void IPointerExitHandler.OnPointerExit( PointerEventData pointer_data )
   {
     onPhysicallyExit();
-
-    stopLongClickCoroutine();
+    
     onPointerExit?.Invoke( pointer_data );
 
     endInteraction();
@@ -241,16 +203,6 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
   #endregion
 
   #region Public Methods and Properties
-  public void setOnClick( Action<PointerEventData> action )
-  {
-    if ( on_click_subscriptions == null )
-      on_click_subscriptions = new EventAction<PointerEventData>();
-    else
-      on_click_subscriptions.clear();
-
-    on_click_subscriptions.add( action );
-  }
-
   public void simulateClick( PointerEventData pointer_data )
   {
     if ( !on_click_subscriptions?.any ?? true )
@@ -303,42 +255,6 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
   {
     get => is_multitouch_supported;
     set => is_multitouch_supported = value;
-  }
-
-  public bool isHandleClickOnlyInPlaceWhereTaped
-  {
-    get => is_handle_click_only_in_place_where_taped;
-    set => is_handle_click_only_in_place_where_taped = value;
-  }
-
-  public LongPressBehaviour longPressBehaviour
-  {
-    get => long_press_behaviour;
-    set => long_press_behaviour = value;
-  }
-
-  public float longClickDelay
-  {
-    get => long_click_delay;
-    set => long_click_delay = value;
-  }
-
-  public byte approximateMaxClicksPerSec
-  {
-    get => approximate_max_clicks_per_sec;
-    set => approximate_max_clicks_per_sec = value;
-  }
-
-  public byte timeWhenMaxClicks
-  {
-    get => time_when_max_clicks;
-    set => time_when_max_clicks = value;
-  }
-
-  public AnimationCurve fromMinToMaxCurve
-  {
-    get => from_min_to_max_curve;
-    set => from_min_to_max_curve = value;
   }
   #endregion
 
@@ -416,33 +332,6 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
   {
     if ( !clickableGlobal.notifyOnAnyClickableClickOnNotAllowed( this, pointer_data ) )
       return;
-  }
-
-  private void stopLongClickCoroutine()
-  {
-  }
-
-  private IEnumerator repeatClicksCoroutine( PointerEventData pointer_data )
-  {
-    AnimationCurve animation_curve = from_min_to_max_curve != null ? from_min_to_max_curve : default_from_min_to_max_curve;
-    float holding_time             = 0.1f;
-    float time_from_previous_click = 0.0f;
-    while ( canContinueInteraction && isInteractable && isInteractableInHierarchy && gameObject.activeSelf && gameObject.activeInHierarchy )
-    {
-      float time_in_range     = holding_time.toRange( time_when_max_clicks / 5.0f, time_when_max_clicks );
-      float clicks_per_sec    = animation_curve.Evaluate( time_in_range / time_when_max_clicks ) * approximate_max_clicks_per_sec;
-      float seconds_per_click = ( 1.0f / clicks_per_sec ).toRange( 0.0f, 1.0f );
-
-      while ( time_from_previous_click >= seconds_per_click )
-      {
-        time_from_previous_click -= seconds_per_click;
-        simulateClick( pointer_data );
-      }
-      yield return null;
-
-      holding_time             += Time.unscaledDeltaTime;
-      time_from_previous_click += Time.unscaledDeltaTime;
-    }
   }
 
   private void notifyInteractableChanged()

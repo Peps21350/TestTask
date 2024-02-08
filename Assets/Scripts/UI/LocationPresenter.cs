@@ -24,7 +24,7 @@ public class LocationPresenter : BasePresenter<LocationModel, LocationView>
 
   public void setLocationSprite()
   {
-    view.spriteRenderer.sprite = model.getLocationData().image; // todo add some fake image
+    view.image.sprite = model.getLocationData().image; // todo add some fake image
   }
 
   private void spawnData()
@@ -44,7 +44,5 @@ public class LocationPresenter : BasePresenter<LocationModel, LocationView>
     );
 
     view.prefabSpawner.runSpawn();
-
-    model.tryIncrementFurnitureNumber();
   }
 }

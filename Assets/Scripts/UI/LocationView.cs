@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class LocationView : BaseView<LocationModel, LocationPresenter, LocationView>
@@ -8,20 +9,20 @@ public class LocationView : BaseView<LocationModel, LocationPresenter, LocationV
   [SerializeField] private UIButtonBase    ui_btn_install_furniture  = null;
   [SerializeField] private UIButtonBase    ui_btn_location_selection = null;
   [SerializeField] private UIPrefabSpawner ui_prefab_spawner         = null;
-  [SerializeField] private SpriteRenderer  ui_sprite_renderer        = null;
+  [SerializeField] private Image           ui_image                  = null;
 
 
-  public UIPrefabSpawner prefabSpawner  => ui_prefab_spawner;
-  public SpriteRenderer  spriteRenderer => ui_sprite_renderer;
+  public UIPrefabSpawner prefabSpawner => ui_prefab_spawner;
+  public Image           image         => ui_image;
   
   
   protected override void initMyComponents()
   {
     base.initMyComponents();
         
-    //ui_btn_install_furniture.onClick += _ => onLocationSelectionClick();
-    
-    //ui_btn_location_selection.onClick += _ => onInstallFurnitureClick();
+    ui_btn_install_furniture.onClick += _ => onInstallFurnitureClick();
+  
+    ui_btn_location_selection.onClick += _ =>onLocationSelectionClick();
   }
 
   public override IEnumerator init()

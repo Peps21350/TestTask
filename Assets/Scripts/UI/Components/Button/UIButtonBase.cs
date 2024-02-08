@@ -1,15 +1,14 @@
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 
 public class UIButtonBase : ButtonBase
 {
   #region Serialize Fields
-  [FormerlySerializedAs( "img_icon" )]
-  [Header( nameof( UIButtonBase ) )] 
-  [SerializeField] protected SpriteRenderer spr_renderer       = null;
-  [SerializeField] protected UITextMesh     txt_title          = null;
-  [SerializeField] private   RectTransform  rect_transform_btn = null;
+  [Header( nameof( UIButtonBase ) )]
+  [SerializeField] protected Image         image              = null;
+  [SerializeField] protected UITextMesh    txt_title          = null;
+  [SerializeField] private   RectTransform rect_transform_btn = null;
 
   [SerializeField] private Color color_normal   = new Color( 1.0f, 1.0f, 1.0f, 1.0f );
   [SerializeField] private Color color_pressed  = new Color( 0.6f, 0.6f, 0.6f, 1.0f );
@@ -18,15 +17,15 @@ public class UIButtonBase : ButtonBase
 
   
   #region Public Methods
-  public void setSpriteIcon( Sprite sprite )
+  public void setSprіiteIcon( Sprite sprite )
   {
     initComponents();
     
-    if ( !spr_renderer )
+    if ( !image )
       return;
 
-    spr_renderer.enabled = sprite != null;
-    spr_renderer.sprite = sprite;
+    image.enabled = sprite != null;
+    image.sprite = sprite;
   }
 
   public void setTitle( string title_text )
@@ -38,14 +37,6 @@ public class UIButtonBase : ButtonBase
 
     txt_title.enabled = !string.IsNullOrWhiteSpace( title_text );
     txt_title.setText( title_text, true );
-  }
-
-  public void setTitle( string title_text, Vector4 margin )
-  {
-    setTitle( title_text );
-
-    if ( txt_title )
-      txt_title.margin = margin;
   }
 
   public void setActiveInteractable( bool state )
@@ -75,25 +66,17 @@ public class UIButtonBase : ButtonBase
   protected override void setButtonState( ButtonState button_state = ButtonState.NORMAL )
   {
     crossFadeColor( button_state );
-    crossFadeScale( button_state );
   }
   #endregion
 
   #region Private Methods
   private void crossFadeColor( ButtonState button_state )
   {
-    Color color = (isInteractable && isInteractableInHierarchy)
-      ? (button_state == ButtonState.PRESSED ? color_pressed : color_normal)
+    Color color = isInteractable && isInteractableInHierarchy
+      ? button_state == ButtonState.PRESSED ? color_pressed : color_normal
       : color_disabled;
 
-    spr_renderer.color = color;
-    // todo
-  }
-
-  private void crossFadeScale( ButtonState button_state )
-  {
-    if ( !rect_transform_btn )
-      return;
+    image.color = color;
   }
   #endregion
 }

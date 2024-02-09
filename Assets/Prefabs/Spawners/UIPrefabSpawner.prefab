@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawn_prefabs: []
+  root_transform: {fileID: 5078626531415964717}
 --- !u!1 &5007940156904145995
 GameObject:
   m_ObjectHideFlags: 0

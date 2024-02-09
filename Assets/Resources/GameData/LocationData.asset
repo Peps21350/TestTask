@@ -16,14 +16,14 @@ MonoBehaviour:
   - location_number: 1
     location_type: 0
     item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
-    image: {fileID: 21300000, guid: d977fa0243f0c354e91d771f407862fb, type: 3}
+    image_name: Location_1
     name: Palace first
-    is_completed: 1
+    is_completed: 0
     furniture_progress: 0
   - location_number: 2
     location_type: 0
-    item_datas: {fileID: 0}
-    image: {fileID: 21300000, guid: 2cef2f6ec5fac484dbc8384e384b4542, type: 3}
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
     name: Palace second
     is_completed: 0
     furniture_progress: 0

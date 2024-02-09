@@ -20,7 +20,7 @@ public class ItemDatas : ScriptableObject
   public struct ItemData
   {
     public ItemType item_type;
-    public Sprite   image; // todo update this part
+    public string   image_name;
     
     [Tooltip("Things that can be placed on top of others must have a higher order (number)")]
     [Range(1,100)]

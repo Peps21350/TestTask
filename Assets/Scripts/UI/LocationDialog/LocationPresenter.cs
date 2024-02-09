@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 using ItemData = ItemDatas.ItemData;
+using LocationStatus = GameState.LocationStatus;
 
 
 public class LocationPresenter : BasePresenter<LocationModel, LocationView>
@@ -9,9 +10,9 @@ public class LocationPresenter : BasePresenter<LocationModel, LocationView>
   
   public void onInstallFurnitureClick()
   {
-    spawnData();
+    spawnData( single_spawn: true );
 
-    model.tryIncrementFurnitureNumber();
+    model.incrementFurnitureAmount();
     
     if ( !canInstallNextFurniture )
       view.setActiveBtnInstallFurniture( false );
@@ -22,20 +23,33 @@ public class LocationPresenter : BasePresenter<LocationModel, LocationView>
     view.setLocationSprite( model.getLocationData().image_name );
   }
 
-  private void spawnData()
+  public void updateData( LocationStatus location_status )
   {
-    ItemData? data = model.getCurFurniture();
+    model.updateData( location_status );
+  }
 
-    if ( data == null )
-    {
-      Debug.LogError( $"Data is null- {nameof(spawnData)}" );
+  public void spawnData( int amount_installed_furniture = 1, bool single_spawn = false )
+  {
+    if ( amount_installed_furniture < 0 )
+      amount_installed_furniture = model.furnitureInstalledAmount;
+    
+    if ( amount_installed_furniture == 0 )
       return;
-    }
     
     view.prefabSpawner.spawnItems<UIFurnitureItem, int>(
-      Enumerable.Range( 0, 1 )
-    , ( a, b ) => a.init( data.Value )
-    , false
+      Enumerable.Range( 0, amount_installed_furniture )
+    , ( a, b ) =>
+      {
+        ItemData? data = model.getCurFurniture( single_spawn ? model.furnitureInstalledAmount : b );
+        
+        if ( data == null )
+        {
+          Debug.LogError( $"Data is null- {nameof(spawnData)}" );
+          return;
+        }
+        
+        a.init( data.Value );
+      }, false
     );
 
     view.prefabSpawner.runSpawn();

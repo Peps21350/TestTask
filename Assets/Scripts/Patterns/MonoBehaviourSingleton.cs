@@ -6,12 +6,14 @@ public class MonoBehaviourSingleton<T> : MonoBehaviourBase
 {
   public static bool isRegistered => instance != null;
   
+  private static T instance = null;
+
   #region Unity Methods
   protected virtual void Awake()
   {
     tryToRegisterSingleton();
   }
-  
+
   protected virtual void Start()
   {
     onCreateService();
@@ -33,8 +35,6 @@ public class MonoBehaviourSingleton<T> : MonoBehaviourBase
     }
   }
 
-  private static T instance = null;
-
   private void tryToRegisterSingleton()
   {
     if ( instance != null )
@@ -45,7 +45,7 @@ public class MonoBehaviourSingleton<T> : MonoBehaviourBase
 
     instance = (T)this;
   }
-  
-  protected virtual void onCreateService() {}
+
+  protected virtual void onCreateService() { }
   #endregion
 }

@@ -12,18 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a872125fa1a3f84b801b2032e035d2d, type: 3}
   m_Name: LocationData
   m_EditorClassIdentifier: 
-  location_datas:
-  - location_number: 1
+  location_data_array:
+  - location_idx: 0
     location_type: 0
     item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
     image_name: Location_1
-    name: Palace first
-    is_completed: 0
-    furniture_progress: 0
-  - location_number: 2
+    name: palace
+  - location_idx: 1
     location_type: 0
     item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
     image_name: Location_2
-    name: Palace second
-    is_completed: 0
-    furniture_progress: 0
+    name: palace

@@ -19,7 +19,7 @@ using UnityEditor;
 ///
 /// In any time when mouse exit rect of clickable: OnPointerExit
 /// </notice>
-public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+public class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
   #region Public Events
   public event Action<PointerEventData> onClick
@@ -58,20 +58,12 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
   #endregion
 
   #region Serialize Fields
-  [HideInInspector, SerializeField] private bool               is_multitouch_supported                   = false;
-  [HideInInspector, SerializeField] private bool               is_handle_click_only_in_place_where_taped = false;
-  [HideInInspector, SerializeField] private LongPressBehaviour long_press_behaviour                      = LongPressBehaviour.SINGLE_ACTION;
-  [HideInInspector, SerializeField] private float              long_click_delay                          = 0.6f;
-
-  [Header( "Repeat Clicks settings" )]
-  [HideInInspector, SerializeField, Range( 2, 20 )] private byte approximate_max_clicks_per_sec  = 5;
-  [HideInInspector, SerializeField, Range( 1, 5 )]  private byte time_when_max_clicks            = 3;
-  [HideInInspector, SerializeField]                 private AnimationCurve from_min_to_max_curve = null;
+  [HideInInspector, SerializeField] private bool is_multitouch_supported                   = false;
+  [HideInInspector, SerializeField] private bool is_handle_click_only_in_place_where_taped = false;
   #endregion
 
   #region Private Fields
   private EventAction<PointerEventData> on_click_subscriptions                  = null;
-  private EventAction<PointerEventData> on_long_click_subscriptions             = null;
   private EventAction<PointerEventData> on_not_interactable_click_subscriptions = null;
 
   private readonly List<CanvasGroup> canvas_group_caches           = new List<CanvasGroup>();
@@ -132,12 +124,9 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
 
   void IPointerClickHandler.OnPointerClick( PointerEventData pointer_data )
   {
-    if ( !canUseClickableGlobal || !clickableGlobal.active_in_interaction_clickable )
+    if ( !canUseClickableGlobal || !clickableGlobal.activeInInteractionClickable )
       return;
-
-    if ( !snapshot_interactable_global )
-      simulateGlobalNotAllowedClick( pointer_data );
-    else
+    
     if ( !snapshot_interactable || !snapshot_interactable_in_hierarchy )
       simulateNotInteractableClick( pointer_data );
     else
@@ -203,6 +192,11 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
   #endregion
 
   #region Public Methods and Properties
+  public void removeAllSubscriptions()
+  {
+    on_click_subscriptions = null;
+  }
+  
   public void simulateClick( PointerEventData pointer_data )
   {
     if ( !on_click_subscriptions?.any ?? true )
@@ -280,7 +274,7 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
     initComponents();
 
     is_long_click_action_executed       = false;
-    snapshot_interactable_global        = clickableGlobal.isInteractableGlobal( this );
+    snapshot_interactable_global        = true;
     snapshot_interactable               = isInteractable;
     snapshot_interactable_in_hierarchy  = isInteractableInHierarchy;
     snapshot_interactable_by_multitouch = tryInteractByMultitouch();
@@ -293,8 +287,8 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
 
       if ( !isNowAnyClickableInteract )
       {
-        clickableGlobal.active_in_interaction_clickable = this;
-        clickableGlobal.active_touch_id = pointer_data.pointerId;
+        clickableGlobal.activeInInteractionClickable = this;
+        clickableGlobal.activeTouchID = pointer_data.pointerId;
         return true;
       }
 
@@ -311,29 +305,14 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
 
   protected void endInteraction()
   {
-    if ( MonoBehaviourSingleton<ClickableBaseGlobal>.isRegistered && clickableGlobal.active_in_interaction_clickable == this )
+    if ( MonoBehaviourSingleton<ClickableBaseGlobal>.isRegistered && clickableGlobal.activeInInteractionClickable == this )
       clickableGlobal.resetMultitouchCaches();
   }
   #endregion
 
   #region Private Methods
-  private bool isNowAnyClickableInteract => canUseClickableGlobal && clickableGlobal.active_touch_id != ClickableBaseGlobal.UNDEFINED_TOUCH_ID;
-
-  private void simulateLongClick( PointerEventData pointer_data )
-  {
-    if ( !on_long_click_subscriptions?.any ?? true )
-      return;
-    
-    clickableGlobal.notifyOnAnyClickableLongClick( this, pointer_data );
-    on_long_click_subscriptions.call( pointer_data );
-  }
-
-  private void simulateGlobalNotAllowedClick( PointerEventData pointer_data )
-  {
-    if ( !clickableGlobal.notifyOnAnyClickableClickOnNotAllowed( this, pointer_data ) )
-      return;
-  }
-
+  private bool isNowAnyClickableInteract => canUseClickableGlobal && clickableGlobal.activeTouchID != ClickableBaseGlobal.UNDEFINED_TOUCH_ID;
+  
   private void notifyInteractableChanged()
   {
     if ( Application.isPlaying )
@@ -353,7 +332,6 @@ public partial class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IP
     onInteractableInHierarchyChanged = null;
 
     on_click_subscriptions                  = null;
-    on_long_click_subscriptions             = null;
     on_not_interactable_click_subscriptions = null;
   }
 }

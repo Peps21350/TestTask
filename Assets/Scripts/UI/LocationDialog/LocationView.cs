@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using LocationStatus = GameState.LocationStatus;
 
 
 public class LocationView : BaseView<LocationModel, LocationPresenter, LocationView>
@@ -26,17 +27,20 @@ public class LocationView : BaseView<LocationModel, LocationPresenter, LocationV
   
   protected override void deinit()
   {
-    base.deinit();
-    
     ui_prefab_spawner.despawnItems();
   }
 
-  public override IEnumerator init()
+  public IEnumerator init( LocationStatus location_status )
   {
     yield return base.init();
+
+    if ( location_status != null )
+      presenter.updateData( location_status );
     
     presenter.setLocationSprite();
     setActiveBtnInstallFurniture( presenter.canInstallNextFurniture );
+    
+    presenter.spawnData( location_status?.installed_furniture ?? -1 );
   }
 
   public void setLocationSprite( string sprite_name )
@@ -44,7 +48,7 @@ public class LocationView : BaseView<LocationModel, LocationPresenter, LocationV
     ui_image.sprite = spriteManager.atlas_location.getSprite( sprite_name );
   }
   
-  public void setActiveBtnInstallFurniture( bool state )
+  public void setActiveBtnInstallFurniture( bool state = true )
   {
     ui_btn_install_furniture.setActiveInteractable( state );
   }

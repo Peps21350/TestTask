@@ -1,14 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 
 public class LocationSelectionView : BaseView<LocationSelectionModel, LocationSelectionPresenter, LocationSelectionView>
 {
   [Header(nameof(LocationView))] 
-  [SerializeField] private UIScrollSpawner ui_scroll_spawner         = null;
-  [SerializeField] private Image           ui_image                  = null;
+  [SerializeField] private UIScrollSpawner ui_scroll_spawner = null;
 
 
   public UIScrollSpawner scrollSpawner => ui_scroll_spawner;
@@ -23,8 +20,6 @@ public class LocationSelectionView : BaseView<LocationSelectionModel, LocationSe
   
   protected override void deinit()
   {
-    base.deinit();
-    
     ui_scroll_spawner.despawnItems();
   }
 }

@@ -2,17 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LocationStatus = GameState.LocationStatus;
 
 
 public class ViewManager : MonoBehaviourSingleton<ViewManager>
 {
-  public RectTransform root_transform_views = null;
+  [SerializeField] private RectTransform root_transform_views = null;
 
   private readonly List<PoolObject> opened_views = new List<PoolObject>();
   
-  public Coroutine addLocationView()
+  public Coroutine addLocationView( LocationStatus location_status = null )
   {
-    return addView<LocationView>( d => d.init() );
+    return addView<LocationView>( d => d.init( location_status ) );
   }
   
   public Coroutine addLocationSelectionView()
@@ -50,6 +51,8 @@ public class ViewManager : MonoBehaviourSingleton<ViewManager>
         PoolObject prev_view = opened_views.firstOrDefault();
         
         prev_view.despawn();
+
+        opened_views.Remove( prev_view );
       }
     }
   }

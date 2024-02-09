@@ -10,9 +10,17 @@ public class UIProgressBar : MonoBehaviourBase
 
   public void init( int cur_value, int max_value )
   {
-    slider.value = cur_value;
     slider.maxValue = max_value;
+    slider.value = cur_value;
     
     text.setText( $"{cur_value}/{max_value}" );
+  }
+
+  public void deinit()
+  {
+    slider.value = 0;
+    slider.maxValue = 0;
+    
+    text.setText( string.Empty );
   }
 }

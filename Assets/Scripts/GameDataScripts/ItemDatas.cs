@@ -8,19 +8,18 @@ using UnityEngine;
 public class ItemDatas : ScriptableObject
 {
   #region Serialize Fields
-  [SerializeField] public ItemData[] item_datas = null;
+  [SerializeField] public ItemData[] item_data_array = null;
   #endregion
   
   #region Public Methods
   public List<ItemData> getSortedItemDatas() 
-    => item_datas.OrderBy( t => t.order_in_layer ).ToList();
+    => item_data_array.OrderBy( t => t.order_in_layer ).ToList();
   #endregion
   
   [Serializable]
   public struct ItemData
   {
-    public ItemType item_type;
-    public string   image_name;
+    public string image_name;
     
     [Tooltip("Things that can be placed on top of others must have a higher order (number)")]
     [Range(1,100)]

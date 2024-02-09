@@ -6,9 +6,8 @@ public class UIButtonBase : ButtonBase
 {
   #region Serialize Fields
   [Header( nameof( UIButtonBase ) )]
-  [SerializeField] protected Image         image              = null;
-  [SerializeField] protected UITextMesh    txt_title          = null;
-  [SerializeField] private   RectTransform rect_transform_btn = null;
+  [SerializeField] protected Image      image     = null;
+  [SerializeField] protected UITextMesh txt_title = null;
 
   [SerializeField] private Color color_normal   = new Color( 1.0f, 1.0f, 1.0f, 1.0f );
   [SerializeField] private Color color_pressed  = new Color( 0.6f, 0.6f, 0.6f, 1.0f );
@@ -72,10 +71,13 @@ public class UIButtonBase : ButtonBase
   #region Private Methods
   private void crossFadeColor( ButtonState button_state )
   {
+    if ( image == null )
+      return;
+    
     Color color = isInteractable && isInteractableInHierarchy
       ? button_state == ButtonState.PRESSED ? color_pressed : color_normal
       : color_disabled;
-
+    
     image.color = color;
   }
   #endregion

@@ -63,21 +63,21 @@ public class CachedAtlas : CachedObject<SpriteAtlas>
   #region Private Methods
   private Sprite getSprite( SpriteAtlas sprite_atlas, string sprite_name, string fallback_sprite_name )
   {
-    Sprite getSprite( string sprite_name )
+    Sprite getCurSprite( string sprite_naming )
     {
-      Sprite sprite = null;
+      Sprite sprite;
 
       if ( cached_sprites == null )
         cached_sprites = new Dictionary<string, Sprite>();
       else
-      if ( cached_sprites.TryGetValue( sprite_name, out sprite ) )
+      if ( cached_sprites.TryGetValue( sprite_naming, out sprite ) )
         return sprite;
 
-      sprite = sprite_atlas.GetSprite( sprite_name );
+      sprite = sprite_atlas.GetSprite( sprite_naming );
       if ( sprite != null )
       {
-        sprite.name = sprite_name;
-        cached_sprites[sprite_name] = sprite;
+        sprite.name = sprite_naming;
+        cached_sprites[sprite_naming] = sprite;
       }
 
       return sprite;
@@ -98,12 +98,12 @@ public class CachedAtlas : CachedObject<SpriteAtlas>
       sprite_name = fallback_sprite_name;
     }
 
-    Sprite sprite = getSprite( sprite_name );
+    Sprite sprite = getCurSprite( sprite_name );
     if ( sprite == null )
     {
       Debug.LogWarning( $"Sprite {sprite_name} Is not inside the ({sprite_atlas}). return {fallback_sprite_name}." );
       if ( !string.IsNullOrEmpty( fallback_sprite_name ) )
-        sprite = getSprite( fallback_sprite_name );
+        sprite = getCurSprite( fallback_sprite_name );
     }
 
     return sprite;

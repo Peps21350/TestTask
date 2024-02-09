@@ -82,7 +82,7 @@ public class UIPrefabSpawner : MonoBehaviourBase
   #endregion
 
   #region Protected Methods
-  protected void startOrContinueSpawn( int current_spawn_idx, bool stop_spawn = false )
+  protected void startOrContinueSpawn( int current_spawn_idx )
   {
     this.current_spawn_idx = current_spawn_idx;
     
@@ -146,7 +146,7 @@ public class UIPrefabSpawner : MonoBehaviourBase
       
       current_spawn_idx++;
       
-      getSpawnData( current_spawn_idx ).func_action();
+      getSpawnData( current_spawn_idx ).funcAction();
     }
   }
 
@@ -170,16 +170,16 @@ public class UIPrefabSpawner : MonoBehaviourBase
   protected class SpawnData
   {
     #region Public Fields
-    public int             prefab_id   { get; private set; } = 0;
-    public Func<Transform> func_action { get; private set; } = null;
+    public int             prefabID   { get; private set; } = 0;
+    public Func<Transform> funcAction { get; private set; } = null;
     #endregion
 
 
     #region Public Constructor
     public SpawnData( int prefab_id, Func<Transform> func_action )
     {
-      this.prefab_id   = prefab_id;
-      this.func_action = func_action;
+      this.prefabID   = prefab_id;
+      this.funcAction = func_action;
     }
     #endregion
   }

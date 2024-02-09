@@ -9,7 +9,6 @@ public class BaseView<M, P, V> : PoolObject
 {
   [Header(nameof(BaseView<M, P, V>))]
   [SerializeField] private UITextMesh   text_title           = null;
-  [SerializeField] private CanvasGroup  canvas_group         = null;
   [SerializeField] private UIButtonBase ui_btn_close         = null;
   [SerializeField] private UITextMesh   text_tap_to_continue = null;
   [SerializeField] private V            cur_object           = null;
@@ -54,11 +53,6 @@ public class BaseView<M, P, V> : PoolObject
   protected virtual void onClickBtnClose()
   {
     closeView();
-  }
-
-  protected override void deinit()
-  {
-    base.deinit();
   }
 
   protected virtual void closeView()

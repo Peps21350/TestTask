@@ -12,19 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eafd8f41a575ba49b1a755aa5cc094e, type: 3}
   m_Name: ItemData_1
   m_EditorClassIdentifier: 
-  item_datas:
-  - item_type: 7
-    image_name: carpet
-    order_in_layer: 1
+  item_data_array:
+  - image_name: carpet
+    order_in_layer: 0
     item_position: {x: 400, y: -400}
     item_scale: {x: 15, y: 20}
-  - item_type: 11
-    image_name: christmass_tree
-    order_in_layer: 2
-    item_position: {x: -400, y: 140}
+  - image_name: christmass_tree
+    order_in_layer: 0
+    item_position: {x: 150, y: -150}
+    item_scale: {x: 25, y: 30}
+  - image_name: table
+    order_in_layer: 0
+    item_position: {x: 400, y: -400}
     item_scale: {x: 15, y: 20}
-  - item_type: 1
-    image_name: table
-    order_in_layer: 2
-    item_position: {x: 400, y: -315}
-    item_scale: {x: 30, y: 25}

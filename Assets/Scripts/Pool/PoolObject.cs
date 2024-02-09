@@ -6,8 +6,8 @@ public class PoolObject : MonoBehaviourBase
 {
     [NonSerialized] public ObjectPool<PoolObject> my_pool = null;
     
-    public int data_idx        { get; private set; }
-    public int spawn_prefab_id { get; private set; }
+    public int dataIdx        { get; private set; }
+    public int spawnPrefabID { get; private set; }
 
     public RectTransform rectTransform => transform as RectTransform;
     
@@ -15,12 +15,12 @@ public class PoolObject : MonoBehaviourBase
     
     public void setSpawnPrefabId( int spawn_prefab_id )
     {
-        this.spawn_prefab_id = spawn_prefab_id;
+        spawnPrefabID = spawn_prefab_id;
     }
     
     public void setDataIdx( int data_idx )
     {
-        this.data_idx = data_idx;
+        dataIdx = data_idx;
     }
     
     public void despawn( DespawnType despawn_type = DespawnType.RELEASE )

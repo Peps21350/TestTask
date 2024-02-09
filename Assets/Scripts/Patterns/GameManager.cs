@@ -14,6 +14,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     
     private void init()
     {
-        viewManager.addMiniGameView();
+        viewManager.addLocationView();
     }
 }

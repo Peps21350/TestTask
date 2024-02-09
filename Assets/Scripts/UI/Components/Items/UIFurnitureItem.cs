@@ -9,7 +9,7 @@ public class UIFurnitureItem : PoolObject
 
     public void init( ItemData item_data )
     {
-        sprite_renderer.sprite       = item_data.image;
+        sprite_renderer.sprite       = spriteManager.atlas_furniture.getSprite( item_data.image_name );
         sprite_renderer.sortingOrder = item_data.order_in_layer;
 
         transform.localPosition = item_data.item_position;

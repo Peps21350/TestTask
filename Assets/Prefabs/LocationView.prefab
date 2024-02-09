@@ -62,7 +62,7 @@ MonoBehaviour:
   cur_object: {fileID: 2768926856250380156}
   ui_btn_install_furniture: {fileID: 7142462154246286974}
   ui_btn_location_selection: {fileID: 7098654050452421581}
-  ui_prefab_spawner: {fileID: 1061850775270074632}
+  ui_prefab_spawner: {fileID: 7009712794078021793}
   ui_image: {fileID: 1211786590099263073}
 --- !u!225 &2558179883319728080
 CanvasGroup:
@@ -268,6 +268,14 @@ PrefabInstance:
       propertyPath: spawn_prefabs.Array.data[0]
       value: 
       objectReference: {fileID: 1869297780711467022, guid: ac577e68d9c42c742afeb9213f8c9d54, type: 3}
+    - target: {fileID: 5766924966631694210, guid: d9b792d111f77c84a8505d7aa53dc163, type: 3}
+      propertyPath: spawn_prefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766924966631694210, guid: d9b792d111f77c84a8505d7aa53dc163, type: 3}
+      propertyPath: spawn_prefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1869297780711467022, guid: ac577e68d9c42c742afeb9213f8c9d54, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -278,9 +286,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4223477805491636923, guid: d9b792d111f77c84a8505d7aa53dc163, type: 3}
   m_PrefabInstance: {fileID: 3553264335505708835}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1061850775270074632 stripped
+--- !u!114 &7009712794078021793 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4608247507180584491, guid: d9b792d111f77c84a8505d7aa53dc163, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5766924966631694210, guid: d9b792d111f77c84a8505d7aa53dc163, type: 3}
   m_PrefabInstance: {fileID: 3553264335505708835}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

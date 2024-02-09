@@ -13,7 +13,6 @@ public class LocationView : BaseView<LocationModel, LocationPresenter, LocationV
 
 
   public UIPrefabSpawner prefabSpawner => ui_prefab_spawner;
-  public Image           image         => ui_image;
   
   
   protected override void initMyComponents()
@@ -22,7 +21,14 @@ public class LocationView : BaseView<LocationModel, LocationPresenter, LocationV
         
     ui_btn_install_furniture.onClick += _ => onInstallFurnitureClick();
   
-    ui_btn_location_selection.onClick += _ =>onLocationSelectionClick();
+    ui_btn_location_selection.onClick += _ => onLocationSelectionClick();
+  }
+  
+  protected override void deinit()
+  {
+    base.deinit();
+    
+    ui_prefab_spawner.despawnItems();
   }
 
   public override IEnumerator init()
@@ -31,6 +37,11 @@ public class LocationView : BaseView<LocationModel, LocationPresenter, LocationV
     
     presenter.setLocationSprite();
     setActiveBtnInstallFurniture( presenter.canInstallNextFurniture );
+  }
+
+  public void setLocationSprite( string sprite_name )
+  {
+    ui_image.sprite = spriteManager.atlas_location.getSprite( sprite_name );
   }
   
   public void setActiveBtnInstallFurniture( bool state )
@@ -45,6 +56,6 @@ public class LocationView : BaseView<LocationModel, LocationPresenter, LocationV
 
   private void onLocationSelectionClick()
   {
-    presenter.onLocationSelectionClick();
+    viewManager.addLocationSelectionView();
   }
 }

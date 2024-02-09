@@ -16,15 +16,10 @@ public class LocationPresenter : BasePresenter<LocationModel, LocationView>
     if ( !canInstallNextFurniture )
       view.setActiveBtnInstallFurniture( false );
   }
-  
-  public void onLocationSelectionClick()
-  {
-    Debug.LogError( "GG" );
-  }
 
   public void setLocationSprite()
   {
-    view.image.sprite = model.getLocationData().image; // todo add some fake image
+    view.setLocationSprite( model.getLocationData().image_name );
   }
 
   private void spawnData()

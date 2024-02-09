@@ -7,12 +7,12 @@ using System.Collections.Generic;
 public class UIPrefabSpawner : MonoBehaviourBase
 {
   #region Serialize Fields
-  [SerializeField] protected PoolObject[] spawn_prefabs = null;
+  [SerializeField] protected PoolObject[]  spawn_prefabs  = null;
+  [SerializeField] protected RectTransform root_transform = null;
   #endregion
 
   #region Protected Fields
-  protected virtual Transform rootParent      => transform;
-  protected virtual int       currentSpawnIdx => current_spawn_idx;
+  protected RectTransform rootParent => root_transform;
   
   protected readonly List<SpawnData>        spawn_data        = new List<SpawnData>();
   private readonly   LinkedList<PoolObject> poolable_list     = new LinkedList<PoolObject>();
@@ -63,7 +63,7 @@ public class UIPrefabSpawner : MonoBehaviourBase
     }
   }
 
-  public virtual void despawnItems( DespawnType despawn_type = DespawnType.RELEASE )
+  public void despawnItems( DespawnType despawn_type = DespawnType.RELEASE )
   {
     initComponents();
 
@@ -75,7 +75,7 @@ public class UIPrefabSpawner : MonoBehaviourBase
     current_spawn_idx = -1;
   }
 
-  public virtual void runSpawn()
+  public void runSpawn()
   { 
     startOrContinueSpawn( current_spawn_idx );
   }
@@ -102,7 +102,7 @@ public class UIPrefabSpawner : MonoBehaviourBase
   protected virtual T tryGetPoolable<T>( int spawn_prefab_id )
     where T : PoolObject
   {
-    T poolable = poolManager.spawnItem<T>( getSpawnPrefab( spawn_prefab_id ), rootParent );
+    T poolable = poolManager.spawnItem<T>( getSpawnPrefab( spawn_prefab_id ), root_transform );
     poolable.setSpawnPrefabId( spawn_prefab_id );
     
     poolable_list.AddLast( poolable );
@@ -136,12 +136,17 @@ public class UIPrefabSpawner : MonoBehaviourBase
   {
     if ( dataCount == 0 )
       yield break;
-
-    current_spawn_idx++;
     
-    for ( int i = 0; i < dataCount - current_spawn_idx; i++ )
+    for ( int i = 0; i < dataCount; i++ )
     {
-      getSpawnData( currentSpawnIdx ).func_action();
+      int next_spawn_idx = current_spawn_idx + 1;
+      
+      if ( !next_spawn_idx.isInRange( 0, dataCount ) )
+        yield break;
+      
+      current_spawn_idx++;
+      
+      getSpawnData( current_spawn_idx ).func_action();
     }
   }
 

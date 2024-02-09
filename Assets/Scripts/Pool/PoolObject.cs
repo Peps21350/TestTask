@@ -8,6 +8,8 @@ public class PoolObject : MonoBehaviourBase
     
     public int data_idx        { get; private set; }
     public int spawn_prefab_id { get; private set; }
+
+    public RectTransform rectTransform => transform as RectTransform;
     
     protected virtual void deinit() { }
     

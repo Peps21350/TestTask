@@ -5,6 +5,7 @@ public abstract class MonoBehaviourBase : MonoBehaviour
 {
   protected static PoolManager         poolManager     => MonoBehaviourSingleton<PoolManager>.Instance;
   protected static ViewManager         viewManager     => MonoBehaviourSingleton<ViewManager>.Instance;
+  protected static SpriteManager       spriteManager   => MonoBehaviourSingleton<SpriteManager>.Instance;
   protected static ClickableBaseGlobal clickableGlobal => MonoBehaviourSingleton<ClickableBaseGlobal>.Instance;
   
   

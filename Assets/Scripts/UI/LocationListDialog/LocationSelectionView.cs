@@ -15,6 +15,7 @@ public class LocationSelectionView : BaseView<LocationSelectionModel, LocationSe
   {
     yield return base.init();
     
+    setTitle( GameText.areas );
     presenter.spawnData();
   }
   

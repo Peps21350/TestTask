@@ -96,12 +96,12 @@ MonoBehaviour:
   m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontSizeMax: 100
+  m_fontStyle: 17
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -356,12 +356,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text_title: {fileID: 2629110776466427121}
-  canvas_group: {fileID: 3655150806124957682}
   ui_btn_close: {fileID: 0}
   text_tap_to_continue: {fileID: 0}
   cur_object: {fileID: 5874807326070316072}
   ui_scroll_spawner: {fileID: 3344549182289096268}
-  ui_image: {fileID: 9096824930949949671}
 --- !u!225 &3655150806124957682
 CanvasGroup:
   m_ObjectHideFlags: 0

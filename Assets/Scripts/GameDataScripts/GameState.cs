@@ -34,7 +34,7 @@ public class GameState
       locations_status.Add( location_status );
   }
 
-  public LocationStatus createNextLocationStatus()
+  public LocationStatus createCurLocationStatus()
   {
     return new LocationStatus( cur_location_idx, cur_furniture_amount );
   }

@@ -20,6 +20,71 @@ MonoBehaviour:
     name: palace
   - location_idx: 1
     location_type: 0
+    item_datas: {fileID: 11400000, guid: 3c9fc10717ad94146a603bd19bb31a06, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 2
+    location_type: 0
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 3
+    location_type: 0
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_1
+    name: palace
+  - location_idx: 4
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_1
+    name: palace
+  - location_idx: 5
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 5
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 5
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 5
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 5
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 5
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 5
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 5
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 5
+    location_type: 1
+    item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
+    image_name: Location_2
+    name: palace
+  - location_idx: 5
+    location_type: 1
     item_datas: {fileID: 11400000, guid: b56a7c41fd3c9294e9cd48a85007fb80, type: 2}
     image_name: Location_2
     name: palace

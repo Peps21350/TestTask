@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu( fileName = "LocationData", menuName = "ScriptableObjects/Data/LocationData", order = 1 )]
-public class LocationDatas : ScriptableObject
+public class LocationsData : ScriptableObject
 {
   #region Serialize Fields
   [SerializeField] public LocationData[] location_data_array = null;
@@ -14,7 +14,10 @@ public class LocationDatas : ScriptableObject
   #region Public Methods
   public LocationData? getLocationData( int location_number )
   {
-    LocationData? location_data = location_data_array[location_number];//.FirstOrDefault( it => it.location_number == location_number );
+    if ( location_data_array.Length < location_number + 1 )
+      return null;
+    
+    LocationData? location_data = location_data_array[location_number];
     
     // ReSharper disable once ConditionIsAlwaysTrueOrFalse
     if ( location_data == null )
@@ -23,8 +26,8 @@ public class LocationDatas : ScriptableObject
     return location_data;
   }
 
-  public List<LocationData> getAllLocationData()
-    => location_data_array.ToList();
+  public List<LocationData> getSortedLocationsData()
+    => location_data_array.ToList().OrderBy( t => t.location_idx ).ToList();
   #endregion
 
   [Serializable]
@@ -35,6 +38,11 @@ public class LocationDatas : ScriptableObject
     public ItemDatas    item_datas;
     public string       image_name;
     public string       name;
+    
+    public int getItemDatasAmount()
+    {
+      return item_datas.item_data_array.Length;
+    }
   }
 
   [Serializable]

@@ -70,6 +70,18 @@ namespace UnityEngine.UI
       if ( target ) target.sprite = sprite;
     }
   }
+  
+  [Serializable]
+  public sealed class SpriteMaterialInstruction : StateInstruction<Image>
+  {
+    [FormerlySerializedAs( "Material" )] 
+    [SerializeField] public Material material;
+
+    public override void apply()
+    {
+      if ( target ) target.material = material;
+    }
+  }
 
   [Serializable]
   public sealed class GraphicColorInstruction : StateInstruction<Graphic>
@@ -274,7 +286,10 @@ namespace UnityEngine.UI
     public List<CanvasGroupVisibilityInstruction> canvasGroupVisibilityInstructions;
 
     [FormerlySerializedAs( "SpriteInstructions" )]
-    public List<SpriteInstruction> spriteInstructions;
+    public List<SpriteInstruction> spriteInstructions; 
+    
+    [FormerlySerializedAs( "SpriteMaterialInstructions" )]
+    public List<SpriteMaterialInstruction> spriteMaterialInstructions;
 
     [FormerlySerializedAs( "GraphicColorInstructions" )]
     public List<GraphicColorInstruction> graphicColorInstructions;
@@ -324,7 +339,7 @@ namespace UnityEngine.UI
     public abstract void setState( object state, int index );
   }
 
-  public abstract class StateView<T> : StateView where T : Enum
+  public abstract class StateView<T> : StateView
   {
     public override void setState( object state, int index )
     {
@@ -356,6 +371,7 @@ namespace UnityEngine.UI
       applyInstructions( enableComponentInstructions, index );
       applyInstructions( canvasGroupVisibilityInstructions, index );
       applyInstructions( spriteInstructions, index );
+      applyInstructions( spriteMaterialInstructions, index );
     }
 
     private void applyTextInstructions( int index )

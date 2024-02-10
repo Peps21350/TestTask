@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 
 public class UIPrefabSpawner : MonoBehaviourBase
@@ -75,23 +76,28 @@ public class UIPrefabSpawner : MonoBehaviourBase
     current_spawn_idx = -1;
   }
 
-  public void runSpawn()
+  public void runSpawn( bool reverse = false )
   { 
-    startOrContinueSpawn( current_spawn_idx );
+    startOrContinueSpawn( current_spawn_idx, reverse );
   }
   #endregion
 
   #region Protected Methods
-  protected void startOrContinueSpawn( int current_spawn_idx )
+  protected void startOrContinueSpawn( int current_spawn_idx, bool reverse = false )
   {
     this.current_spawn_idx = current_spawn_idx;
     
-     StartCoroutine( spawnItemsCoroutine() );
+     StartCoroutine( spawnItemsCoroutine( reverse ) );
   }
 
   protected SpawnData getSpawnData( int data_idx )
   {
     return spawn_data[data_idx];
+  }
+  
+  protected PoolObject getSpawnObject( int idx )
+  {
+    return poolable_list.ElementAt( idx );
   }
 
   protected PoolObject getSpawnPrefab( int prefab_id )
@@ -132,20 +138,26 @@ public class UIPrefabSpawner : MonoBehaviourBase
     return true;
   }
 
-  private IEnumerator spawnItemsCoroutine()
+  private IEnumerator spawnItemsCoroutine( bool reverse = false )
   {
     if ( dataCount == 0 )
       yield break;
-    
+
+    if ( reverse )
+      current_spawn_idx = dataCount;
+
     for ( int i = 0; i < dataCount; i++ )
     {
-      int next_spawn_idx = current_spawn_idx + 1;
-      
+      int next_spawn_idx = reverse ? current_spawn_idx - 1 : current_spawn_idx + 1;
+
       if ( !next_spawn_idx.isInRange( 0, dataCount ) )
         yield break;
       
-      current_spawn_idx++;
-      
+      if ( reverse )
+        current_spawn_idx--;
+      else
+        current_spawn_idx++;
+
       getSpawnData( current_spawn_idx ).funcAction();
     }
   }

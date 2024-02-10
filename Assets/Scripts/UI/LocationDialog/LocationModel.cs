@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using LocationStatus = GameState.LocationStatus;
 using ItemData = ItemDatas.ItemData;
 using LocationData = LocationsData.LocationData;

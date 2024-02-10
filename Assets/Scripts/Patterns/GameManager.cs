@@ -1,19 +1,35 @@
-using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    public static event Action onApplicationQuit = ( ) => { };
-    
-    private void OnApplicationQuit()
-        => onApplicationQuit?.Invoke();
+  protected override void Awake()
+  {
+    base.Awake();
 
-    protected override void onCreateService()
+    DontDestroyOnLoad( this );
+  }
+
+  protected override void onCreateService()
+  {
+    spriteManager.onLocationAtlasLoaded += changeScene;
+  }
+
+  private void changeScene()
+  {
+    StartCoroutine( change() );
+    IEnumerator change()
     {
-        init();
+      yield return new WaitForSeconds( 2.0f );
+      yield return SceneManager.LoadSceneAsync( 1 );
+      init();
     }
-    
-    private void init()
-    {
-        viewManager.addLocationView();
-    }
+  }
+
+  private void init()
+  {
+    viewManager.addLocationView();
+  }
 }

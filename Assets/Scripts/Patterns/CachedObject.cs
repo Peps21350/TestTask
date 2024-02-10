@@ -12,8 +12,8 @@ public class CachedObject<T>
   #endregion
 
   #region Private Fields
-  private bool   is_resources_asset  = false; // for asset in Resources folder
-  private string cached_name         = null;
+  private bool   is_resources_asset = false; // for asset in Resources folder
+  private string cached_name        = null;
   #endregion
 
   #region Public Fields
@@ -52,7 +52,7 @@ public class CachedObject<T>
 
     callback?.Invoke( cached_obj );
   }
-  
+
   public void destroy()
   {
     onRelease( cached_obj );
@@ -61,7 +61,7 @@ public class CachedObject<T>
   #endregion
 
   #region Protected Methods
-  protected virtual void onRelease( T asset ) {}
+  protected virtual void onRelease( T asset ) { }
   #endregion
 
   #region Public Constructor
@@ -70,11 +70,11 @@ public class CachedObject<T>
     this.cached_name = cached_name;
   }
   #endregion
-  
+
   #region Public Class
   public class ResourceLoadingException : Exception
   {
-    public ResourceLoadingException( string msg ) : base( msg ) {}
+    public ResourceLoadingException( string msg ) : base( msg ) { }
   }
   #endregion
 }

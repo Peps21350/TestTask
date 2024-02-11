@@ -16,17 +16,6 @@ public class UIButtonBase : ButtonBase
 
   
   #region Public Methods
-  public void setSprіiteIcon( Sprite sprite )
-  {
-    initComponents();
-    
-    if ( !image )
-      return;
-
-    image.enabled = sprite != null;
-    image.sprite = sprite;
-  }
-
   public void setTitle( string title_text )
   {
     initComponents();
@@ -41,23 +30,6 @@ public class UIButtonBase : ButtonBase
   public void setActiveInteractable( bool state )
   {
     isInteractable = state;
-  }
-
-  public void setTitle( string title_text, Vector3 position )
-  {
-    setTitle( title_text );
-
-    if ( txt_title )
-      txt_title.rectTransform.anchoredPosition = position;
-  }
-  public void setTitleColor( Color color )
-  {
-    initComponents();
-
-    if ( !txt_title )
-      return;
-
-    txt_title.color = color;
   }
   #endregion
 

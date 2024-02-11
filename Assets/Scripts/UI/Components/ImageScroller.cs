@@ -3,18 +3,13 @@ using UnityEngine.UI;
 
 
 [RequireComponent( typeof( RawImage ) )]
-public class ImageScroller : MonoBehaviour
+public class ImageScroller : MonoBehaviourBase
 {
-  [SerializeField, Range( 0, 10 )] private float scrollSpeed = 0.1f;
-  [SerializeField, Range( -1, 1 )] private float xDirection  = 1;
-  [SerializeField, Range( -1, 1 )] private float yDirection  = 1;
-
-  private RawImage image;
+  [SerializeField, Range( 0, 10 )] private float    scrollSpeed = 0.1f;
+  [SerializeField, Range( -1, 1 )] private float    xDirection  = 1;
+  [SerializeField, Range( -1, 1 )] private float    yDirection  = 1;
   
-  private void Awake()
-  {
-    image = GetComponent<RawImage>();
-  }
+  [SerializeField] private RawImage image = null;
 
 
   private void Update()

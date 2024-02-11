@@ -100,11 +100,9 @@ public class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDo
     onPhysicallyDown();
 
     initInteraction( pointer_data );
-    clickableGlobal.notifyOnAnyClickablePointerDownIgnoreIsInteractable( this, pointer_data );
     if ( !canContinueInteraction )
       return;
-
-    clickableGlobal.notifyOnAnyClickablePointerDown( this, pointer_data );
+    
     onPointerDown?.Invoke( pointer_data );
   }
 
@@ -117,8 +115,7 @@ public class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDo
     
     if ( !canContinueInteraction )
       return;
-
-    clickableGlobal.notifyOnAnyClickablePointerUp( this, pointer_data );
+    
     onPointerUp?.Invoke( pointer_data );
   }
 
@@ -132,8 +129,6 @@ public class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDo
     else
     if ( snapshot_interactable_by_multitouch && !is_long_click_action_executed && ( !is_handle_click_only_in_place_where_taped || !pointer_data.dragging ) )
       simulateClick( pointer_data );
-
-    endInteraction();
   }
 
   void IPointerEnterHandler.OnPointerEnter( PointerEventData pointer_data )
@@ -146,8 +141,6 @@ public class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDo
     onPhysicallyExit();
     
     onPointerExit?.Invoke( pointer_data );
-
-    endInteraction();
   }
 
   private void OnCanvasGroupChanged()
@@ -202,8 +195,6 @@ public class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDo
     if ( !on_click_subscriptions?.any ?? true )
       return;
 
-    clickableGlobal.notifyOnAnyClickableClick( this, pointer_data );
-
     on_click_subscriptions.call( pointer_data );
   }
 
@@ -211,8 +202,7 @@ public class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDo
   {
     if ( !on_not_interactable_click_subscriptions?.any ?? true )
       return;
-
-    clickableGlobal.notifyOnAnyClickableNotInteractableClick( this, pointer_data );
+    
     on_not_interactable_click_subscriptions.call( pointer_data );
   }
 
@@ -283,8 +273,6 @@ public class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDo
 
     bool tryInteractByMultitouch()
     {
-      fixInteractionsByMultitouchPossibleErrors();
-
       if ( !isNowAnyClickableInteract )
       {
         clickableGlobal.activeInInteractionClickable = this;
@@ -294,19 +282,6 @@ public class ClickableBase : MonoBehaviourBase, IPointerClickHandler, IPointerDo
 
       return isMultitouchSupported;
     }
-
-    void fixInteractionsByMultitouchPossibleErrors()
-    {
-      int touch_count = Input.touchCount;
-      if ( touch_count == 0 || touch_count == 1 )
-        clickableGlobal.resetMultitouchCaches();
-    }
-  }
-
-  protected void endInteraction()
-  {
-    if ( MonoBehaviourSingleton<ClickableBaseGlobal>.isRegistered && clickableGlobal.activeInInteractionClickable == this )
-      clickableGlobal.resetMultitouchCaches();
   }
   #endregion
 

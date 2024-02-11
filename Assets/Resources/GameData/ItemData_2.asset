@@ -18,10 +18,10 @@ MonoBehaviour:
     item_position: {x: 35, y: -500}
     item_scale: {x: 30, y: 35}
   - image_name: fireplace
-    order_in_layer: 0
+    order_in_layer: 2
     item_position: {x: -480, y: 200}
     item_scale: {x: 25, y: 30}
   - image_name: table
-    order_in_layer: 0
+    order_in_layer: 2
     item_position: {x: 20, y: 100}
     item_scale: {x: 30, y: 20}

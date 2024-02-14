@@ -59,7 +59,7 @@ public class PoolManager : MonoBehaviourSingleton<PoolManager>
 
   private PoolObject OnObjectCreate()
   {
-    PoolObject newObject = Instantiate( cur_game_object, transform_root != null ? transform_root : transform );
+    PoolObject newObject = Instantiate( cur_game_object, transform_root != null ? transform_root : transform, worldPositionStays: cur_game_object is UIFurnitureItem );
 
     return newObject;
   }

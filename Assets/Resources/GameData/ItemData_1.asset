@@ -19,9 +19,9 @@ MonoBehaviour:
     item_scale: {x: 15, y: 20}
   - image_name: christmass_tree
     order_in_layer: 2
-    item_position: {x: 150, y: -150}
-    item_scale: {x: 25, y: 30}
+    item_position: {x: 0, y: 120}
+    item_scale: {x: 20, y: 20}
   - image_name: table
     order_in_layer: 2
-    item_position: {x: 400, y: -400}
-    item_scale: {x: 15, y: 20}
+    item_position: {x: 400, y: -330}
+    item_scale: {x: 25, y: 20}

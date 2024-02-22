@@ -170,10 +170,10 @@ RectTransform:
   m_Father: {fileID: 5295813080377242843}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 860}
-  m_SizeDelta: {x: 0, y: -1720}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1798291899753168287
 CanvasRenderer:
@@ -357,7 +357,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text_title: {fileID: 2629110776466427121}
   ui_btn_close: {fileID: 0}
-  text_tap_to_continue: {fileID: 0}
   cur_object: {fileID: 5874807326070316072}
   ui_scroll_spawner: {fileID: 3344549182289096268}
 --- !u!225 &3655150806124957682
@@ -501,8 +500,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5078626531415964717, guid: ec873da13ab4f8b4584b4a784465b774, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5078626531415964717, guid: ec873da13ab4f8b4584b4a784465b774, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 832.0985
+      value: 832.1044
       objectReference: {fileID: 0}
     - target: {fileID: 5766924966631694210, guid: ec873da13ab4f8b4584b4a784465b774, type: 3}
       propertyPath: spawn_prefabs.Array.size
@@ -543,6 +546,14 @@ PrefabInstance:
     - target: {fileID: 8584498155741977416, guid: ec873da13ab4f8b4584b4a784465b774, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584498155741977416, guid: ec873da13ab4f8b4584b4a784465b774, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584498155741977416, guid: ec873da13ab4f8b4584b4a784465b774, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

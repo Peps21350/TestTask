@@ -8,10 +8,9 @@ public class BaseView<M, P, V> : PoolObject
   where V : PoolObject
 {
   [Header(nameof(BaseView<M, P, V>))]
-  [SerializeField] private UITextMesh   text_title           = null;
-  [SerializeField] private UIButtonBase ui_btn_close         = null;
-  [SerializeField] private UITextMesh   text_tap_to_continue = null;
-  [SerializeField] private V            cur_object           = null;
+  [SerializeField] private UITextMesh   text_title   = null;
+  [SerializeField] private UIButtonBase ui_btn_close = null;
+  [SerializeField] private V            cur_object   = null;
   [Space]
   
   private   M model;
@@ -22,8 +21,6 @@ public class BaseView<M, P, V> : PoolObject
   {
     presenter = new P();
     
-    subscribe();
-    
     model = new M();
     
     presenter.setup( model, cur_object );
@@ -33,8 +30,6 @@ public class BaseView<M, P, V> : PoolObject
 
     yield break;
   }
-
-  protected virtual void subscribe() { }
   
   #region initMyComponents Methods
   protected override void initMyComponents()
@@ -50,12 +45,12 @@ public class BaseView<M, P, V> : PoolObject
   #endregion
 
   #region Protected Methods
-  protected virtual void onClickBtnClose()
+  protected void onClickBtnClose()
   {
     closeView();
   }
 
-  protected virtual void closeView()
+  protected void closeView()
   { 
     despawn();
   }
@@ -64,12 +59,6 @@ public class BaseView<M, P, V> : PoolObject
   {
     if ( text_title )
       text_title.setText( title, force_auto_size );
-  }
-
-  protected void setContinueTextEnabled( bool is_enabled )
-  {
-    if ( text_tap_to_continue )
-      text_tap_to_continue.enabled = is_enabled;
   }
   #endregion
 }

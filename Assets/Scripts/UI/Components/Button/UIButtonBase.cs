@@ -9,9 +9,9 @@ public class UIButtonBase : ButtonBase
   [SerializeField] protected Image      image     = null;
   [SerializeField] protected UITextMesh txt_title = null;
 
-  [SerializeField] private Color color_normal   = new Color( 1.0f, 1.0f, 1.0f, 1.0f );
-  [SerializeField] private Color color_pressed  = new Color( 0.6f, 0.6f, 0.6f, 1.0f );
-  [SerializeField] private Color color_disabled = new Color( 0.8f, 0.8f, 0.8f, 0.5f );
+  [SerializeField] private Color color_normal   = new( 1.0f, 1.0f, 1.0f, 1.0f );
+  [SerializeField] private Color color_pressed  = new( 0.6f, 0.6f, 0.6f, 1.0f );
+  [SerializeField] private Color color_disabled = new( 0.8f, 0.8f, 0.8f, 0.5f );
   #endregion
 
   

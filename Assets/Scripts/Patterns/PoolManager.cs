@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Pool;
@@ -10,10 +9,8 @@ public class PoolManager : MonoBehaviourSingleton<PoolManager>
   public GameObject[]  objectsPrefab = null;
 
   #region Private Fields
-  private readonly Dictionary<Type, ObjectPool<PoolObject>> pool_holders = new Dictionary<Type, ObjectPool<PoolObject>>();
-
-  private PoolObject cur_game_object = null;
-
+  private readonly Dictionary<PoolObject, ObjectPool<PoolObject>> pool_holders = new();
+  
   private Transform transform_root = null;
   #endregion
 
@@ -28,18 +25,9 @@ public class PoolManager : MonoBehaviourSingleton<PoolManager>
 
     this.transform_root = transform_root;
 
-    cur_game_object = pool_object;
-
-    T cur_object = getOrCreatePoolHolder( cur_game_object ).Get().GetComponent<T>();
+    T cur_object = getOrCreatePoolHolder( pool_object ).Get().GetComponent<T>();
 
     return cur_object;
-  }
-
-  public T spawnItem<T>() where T : PoolObject
-  {
-    T cur_game_object = objectsPrefab?.FirstOrDefault( t => t.name.ToLower().Equals( typeof( T ).ToString().ToLower() ) )?.GetComponent<T>();
-
-    return spawnItem<T>( cur_game_object );
   }
   
   public T spawnItem<T>( Transform transform_root ) where T : PoolObject
@@ -57,9 +45,9 @@ public class PoolManager : MonoBehaviourSingleton<PoolManager>
     getOrCreatePoolHolder( pool_object ).Release( pool_object );
   }
 
-  private PoolObject OnObjectCreate()
+  private PoolObject OnObjectCreate( PoolObject pool_item )
   {
-    PoolObject newObject = Instantiate( cur_game_object, transform_root != null ? transform_root : transform, worldPositionStays: cur_game_object is UIFurnitureItem );
+    PoolObject newObject = Instantiate( pool_item, transform_root != null ? transform_root : transform, worldPositionStays: pool_item is UIFurnitureItem );
 
     return newObject;
   }
@@ -73,9 +61,9 @@ public class PoolManager : MonoBehaviourSingleton<PoolManager>
 
   private ObjectPool<PoolObject> createPoolHolder( PoolObject pool_item )
   {
-    ObjectPool<PoolObject> new_pool_holder = new(OnObjectCreate, OnTake, OnRelease, OnObjectDestroy);
+    ObjectPool<PoolObject> new_pool_holder = new( () => OnObjectCreate( pool_item ), OnTake, OnRelease, OnObjectDestroy );
 
-    pool_holders.Add( pool_item.GetType(), new_pool_holder );
+    pool_holders.Add( pool_item, new_pool_holder );
 
     return new_pool_holder;
   }
@@ -85,7 +73,7 @@ public class PoolManager : MonoBehaviourSingleton<PoolManager>
     if ( pool_item.my_pool != null )
       return pool_item.my_pool;
 
-    return pool_holders.TryGetValue( pool_item.GetType(), out ObjectPool<PoolObject> pool_holder ) ? pool_holder : null;
+    return pool_holders.TryGetValue( pool_item, out ObjectPool<PoolObject> pool_holder ) ? pool_holder : null;
   }
 
   private void OnTake( PoolObject poolObject )
